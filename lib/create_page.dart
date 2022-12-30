@@ -19,6 +19,8 @@ class _CreateReminderPageState extends State<CreateReminderPage> {
 
   final passwordController = TextEditingController();
 
+  final formKey = GlobalKey<FormState>();
+
   DBHelper? dbHelper;
 
   @override
@@ -35,44 +37,79 @@ class _CreateReminderPageState extends State<CreateReminderPage> {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 32),
-        child: Column(
-          children: [
-            MyTextField(
-              label: 'Enter Title',
-              controller: titleController,
-            ),
-            const SizedBox(height: 27),
-            MyTextField(
-              label: 'Enter Email or Phone Number',
-              controller: emailController,
-            ),
-            const SizedBox(height: 27),
-            MyTextField(
-              label: 'Enter Password',
-              controller: passwordController,
-            ),
-            const SizedBox(height: 30),
-            ElevatedButton(
-              onPressed: () {
-                dbHelper!
-                    .insert(NotesModel(
-                        title: titleController.text.toUpperCase(),
-                        email: emailController.text,
-                        password: passwordController.text))
-                    .then((value) {
-                  debugPrint('Data Added');
-                  nextScreenReplace(context, HomePage());
-                }).onError((error, stackTrace) {
-                  debugPrint(error.toString());
-                });
-              },
-              child: Text(
-                'Save Data',
-                style: TextStyle(fontSize: 18),
+        child: Form(
+          key: formKey,
+          child: Column(
+            children: [
+              TextFormField(
+                controller: titleController,
+                decoration: textInputDecoration.copyWith(
+                  labelText: 'Enter Title',
+                  labelStyle: TextStyle(color: Theme.of(context).primaryColor),
+                ),
+                cursorColor: Theme.of(context).primaryColor,
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Empty Text Field can not be accepted';
+                  } else
+                    null;
+                },
               ),
-              style: ElevatedButton.styleFrom(fixedSize: Size(120, 40)),
-            )
-          ],
+              const SizedBox(height: 27),
+              TextFormField(
+                controller: emailController,
+                decoration: textInputDecoration.copyWith(
+                  labelText: 'Enter Email or Phone Number',
+                  labelStyle: TextStyle(color: Theme.of(context).primaryColor),
+                ),
+                cursorColor: Theme.of(context).primaryColor,
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Empty Text Field can not be accepted';
+                  } else
+                    null;
+                },
+              ),
+              const SizedBox(height: 27),
+              TextFormField(
+                controller: passwordController,
+                decoration: textInputDecoration.copyWith(
+                  labelText: 'Enter Password',
+                  labelStyle: TextStyle(color: Theme.of(context).primaryColor),
+                ),
+                cursorColor: Theme.of(context).primaryColor,
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Empty Text Field can not be accepted';
+                  } else
+                    null;
+                },
+              ),
+              const SizedBox(height: 30),
+              ElevatedButton(
+                onPressed: () {
+                  if (formKey.currentState!.validate()) {
+                    dbHelper!
+                        .insert(NotesModel(
+                            title: titleController.text.toUpperCase(),
+                            email: emailController.text,
+                            password: passwordController.text))
+                        .then((value) {
+                      debugPrint('Data Added');
+                      nextScreenReplace(context, HomePage());
+                    }).onError((error, stackTrace) {
+                      debugPrint(error.toString());
+                    });
+                  }
+                },
+                child: Text(
+                  'Save Data',
+                  style: TextStyle(fontSize: 18),
+                ),
+                style: ElevatedButton.styleFrom(fixedSize: Size(120, 40)),
+              )
+            ],
+          ),
         ),
       ),
     );
