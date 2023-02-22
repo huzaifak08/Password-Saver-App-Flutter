@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>195740025252-mia9dns4e7du8gt9vv1aq357r5agrv53.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.195740025252-mia9dns4e7du8gt9vv1aq357r5agrv53</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>195740025252-54dvj8klk3mv8mhsk81iolrk4g8acjuk.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDu3erdd2r70LIpGawFR5qrIHGDUK8AKnA</string>
+	<key>GCM_SENDER_ID</key>
+	<string>195740025252</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.passwordSaver</string>
+	<key>PROJECT_ID</key>
+	<string>my-firebase-asif-taj</string>
+	<key>STORAGE_BUCKET</key>
+	<string>my-firebase-asif-taj.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:195740025252:ios:d80b5d75abc6d1964ac131</string>
+	<key>DATABASE_URL</key>
+	<string>https://my-firebase-asif-taj-default-rtdb.firebaseio.com</string>
+</dict>
+</plist>

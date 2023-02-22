@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:password_saver/Widgets/nextscreen_widgets.dart';
-import 'package:password_saver/Widgets/text_field_widget.dart';
-import 'package:password_saver/database_handler.dart';
-import 'package:password_saver/home_page.dart';
-import 'package:password_saver/notes_model.dart';
+import '../Widgets/widgets.dart';
 
 class CreateReminderPage extends StatefulWidget {
   CreateReminderPage({super.key});
@@ -13,21 +9,11 @@ class CreateReminderPage extends StatefulWidget {
 }
 
 class _CreateReminderPageState extends State<CreateReminderPage> {
-  final titleController = TextEditingController();
-
-  final emailController = TextEditingController();
-
-  final passwordController = TextEditingController();
+  String savedTitle = '';
+  String savedEmail = '';
+  String savedPassword = '';
 
   final formKey = GlobalKey<FormState>();
-
-  DBHelper? dbHelper;
-
-  @override
-  void initState() {
-    super.initState();
-    dbHelper = DBHelper();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,12 +28,17 @@ class _CreateReminderPageState extends State<CreateReminderPage> {
           child: Column(
             children: [
               TextFormField(
-                controller: titleController,
                 decoration: textInputDecoration.copyWith(
                   labelText: 'Enter Title',
                   labelStyle: TextStyle(color: Theme.of(context).primaryColor),
                 ),
                 cursorColor: Theme.of(context).primaryColor,
+                textInputAction: TextInputAction.next,
+                onChanged: (value) {
+                  setState(() {
+                    savedTitle = value;
+                  });
+                },
                 validator: (value) {
                   if (value!.isEmpty) {
                     return 'Empty Text Field can not be accepted';
@@ -57,12 +48,18 @@ class _CreateReminderPageState extends State<CreateReminderPage> {
               ),
               const SizedBox(height: 27),
               TextFormField(
-                controller: emailController,
                 decoration: textInputDecoration.copyWith(
                   labelText: 'Enter Email or Phone Number',
                   labelStyle: TextStyle(color: Theme.of(context).primaryColor),
                 ),
                 cursorColor: Theme.of(context).primaryColor,
+                keyboardType: TextInputType.emailAddress,
+                textInputAction: TextInputAction.next,
+                onChanged: (value) {
+                  setState(() {
+                    savedEmail = value;
+                  });
+                },
                 validator: (value) {
                   if (value!.isEmpty) {
                     return 'Empty Text Field can not be accepted';
@@ -72,12 +69,16 @@ class _CreateReminderPageState extends State<CreateReminderPage> {
               ),
               const SizedBox(height: 27),
               TextFormField(
-                controller: passwordController,
                 decoration: textInputDecoration.copyWith(
                   labelText: 'Enter Password',
                   labelStyle: TextStyle(color: Theme.of(context).primaryColor),
                 ),
                 cursorColor: Theme.of(context).primaryColor,
+                onChanged: (value) {
+                  setState(() {
+                    savedPassword = value;
+                  });
+                },
                 validator: (value) {
                   if (value!.isEmpty) {
                     return 'Empty Text Field can not be accepted';
@@ -88,19 +89,7 @@ class _CreateReminderPageState extends State<CreateReminderPage> {
               const SizedBox(height: 30),
               ElevatedButton(
                 onPressed: () {
-                  if (formKey.currentState!.validate()) {
-                    dbHelper!
-                        .insert(NotesModel(
-                            title: titleController.text.toUpperCase(),
-                            email: emailController.text,
-                            password: passwordController.text))
-                        .then((value) {
-                      debugPrint('Data Added');
-                      nextScreenReplace(context, HomePage());
-                    }).onError((error, stackTrace) {
-                      debugPrint(error.toString());
-                    });
-                  }
+                  if (formKey.currentState!.validate()) {}
                 },
                 child: Text(
                   'Save Data',
