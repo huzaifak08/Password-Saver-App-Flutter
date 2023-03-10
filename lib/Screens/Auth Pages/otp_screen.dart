@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 
 import '../../Provider/auth_provider.dart';
 import '../../Widgets/custom_button.dart';
-import 'home_screen.dart';
+import 'profile_screen.dart';
 
 class OtpScreen extends StatefulWidget {
   final String verificationId;
@@ -147,7 +147,8 @@ class _OtpScreenState extends State<OtpScreen> {
                                 (value) => Navigator.pushAndRemoveUntil(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => const HomeScreen(),
+                                      builder: (context) =>
+                                          const ProfileScreen(),
                                     ),
                                     (route) => false),
                               ),

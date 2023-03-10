@@ -4,7 +4,7 @@ import 'package:password_saver/Widgets/widgets.dart';
 import 'package:provider/provider.dart';
 import '../../Provider/auth_provider.dart';
 import '../../Widgets/custom_button.dart';
-import 'home_screen.dart';
+import 'profile_screen.dart';
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({super.key});
@@ -52,7 +52,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   onPressed: () async {
                     if (ap.isSignedIn == true) {
                       ap.getDataFromSP().whenComplete(() {
-                        nextScreenReplace(context, const HomeScreen());
+                        nextScreenReplace(context, const ProfileScreen());
                       });
                     } else {
                       nextScreenReplace(context, const RegisterScreen());

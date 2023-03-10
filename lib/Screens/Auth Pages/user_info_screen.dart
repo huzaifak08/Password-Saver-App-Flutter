@@ -5,7 +5,7 @@ import '../../Model/user_model.dart';
 import '../../Provider/auth_provider.dart';
 import '../../Widgets/custom_button.dart';
 import '../../Widgets/widgets.dart';
-import 'home_screen.dart';
+import 'profile_screen.dart';
 
 class UserInfoScreen extends StatefulWidget {
   const UserInfoScreen({super.key});
@@ -177,7 +177,7 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
                 ap.setSignIn().then((value) => Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const HomeScreen(),
+                      builder: (context) => const ProfileScreen(),
                     ),
                     (route) => false)));
           });
