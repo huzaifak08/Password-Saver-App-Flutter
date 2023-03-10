@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:password_saver/Screens/Auth%20Pages/profile_screen.dart';
 import 'package:password_saver/Widgets/data_widget.dart';
 import 'package:password_saver/Widgets/widgets.dart';
 
@@ -32,21 +33,56 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        title: Text('Saved Data'),
-        centerTitle: true,
-        actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.exit_to_app))
-        ],
-      ),
-      // body: dataList(),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          nextScreen(context, const CreateReminderPage());
-        },
-        child: const Icon(Icons.add),
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.purple,
+          // elevation: 0,
+          title: Text('Saved Data'),
+          centerTitle: true,
+        ),
+        drawer: Drawer(
+          backgroundColor: Colors.purple,
+          child: ListView(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 25),
+            // ignore: prefer_const_literals_to_create_immutables
+            children: [
+              const ListTile(
+                selected: true,
+                selectedTileColor: Colors.white,
+                title: Text(
+                  'Home Page',
+                  style: TextStyle(color: Colors.black),
+                ),
+                leading: Icon(
+                  Icons.home,
+                  color: Colors.black,
+                ),
+              ),
+              const SizedBox(height: 12),
+              ListTile(
+                onTap: () {
+                  nextScreenReplace(context, const ProfileScreen());
+                },
+                title: const Text(
+                  'Profile Page',
+                  style: TextStyle(color: Colors.white),
+                ),
+                leading: const Icon(
+                  Icons.account_circle,
+                  color: Colors.white,
+                ),
+              )
+            ],
+          ),
+        ),
+        // body: dataList(),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            nextScreen(context, const CreateReminderPage());
+          },
+          child: const Icon(Icons.add),
+        ),
       ),
     );
   }

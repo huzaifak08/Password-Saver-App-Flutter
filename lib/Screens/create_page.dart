@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:password_saver/Widgets/custom_button.dart';
 import '../Widgets/widgets.dart';
 
 class CreateReminderPage extends StatefulWidget {
@@ -88,39 +89,34 @@ class _CreateReminderPageState extends State<CreateReminderPage> {
                 },
               ),
               const SizedBox(height: 30),
-              ElevatedButton(
-                // -------------------------------------------
+              SizedBox(
+                width: 300,
+                height: 50,
+                child: CustomButton(
+                  loading: isLoading,
+                  text: 'Save Data',
+                  onPressed: () {
+                    if (formKey.currentState!.validate()) {
+                      //   setState(() {
+                      //     isLoading = true;
+                      //   });
 
-                onPressed: () {
-                  if (formKey.currentState!.validate()) {
-                    //   setState(() {
-                    //     isLoading = true;
-                    //   });
-
-                    //   DatabaseService(uid: FirebaseAuth.instance.currentUser!.uid)
-                    //       .savaData(FirebaseAuth.instance.currentUser!.uid, {
-                    //     'title': savedTitle,
-                    //     'email': savedEmail,
-                    //     'password': savedPassword,
-                    //   }).whenComplete(() {
-                    //     setState(() {
-                    //       isLoading = false;
-                    //     });
-                    //     toastMessage('Data Saved Successfully');
-                    //     nextScreenReplace(context, const HomePage());
-                    //   });
-                  }
-                },
-                child: isLoading
-                    ? const CircularProgressIndicator(
-                        color: Colors.white,
-                      )
-                    : const Text(
-                        'Save Data',
-                        style: TextStyle(fontSize: 18),
-                      ),
-                style: ElevatedButton.styleFrom(fixedSize: const Size(120, 40)),
-              )
+                      //   DatabaseService(uid: FirebaseAuth.instance.currentUser!.uid)
+                      //       .savaData(FirebaseAuth.instance.currentUser!.uid, {
+                      //     'title': savedTitle,
+                      //     'email': savedEmail,
+                      //     'password': savedPassword,
+                      //   }).whenComplete(() {
+                      //     setState(() {
+                      //       isLoading = false;
+                      //     });
+                      //     toastMessage('Data Saved Successfully');
+                      //     nextScreenReplace(context, const HomePage());
+                      //   });
+                    }
+                  },
+                ),
+              ),
             ],
           ),
         ),

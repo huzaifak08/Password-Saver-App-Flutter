@@ -1,16 +1,15 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 
 const textInputDecoration = InputDecoration(
   enabledBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: Color(0xFFee7b64), width: 2)),
+      borderSide: BorderSide(color: Colors.purple, width: 2)),
   focusedBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: Color(0xFFee7b64), width: 2)),
+      borderSide: BorderSide(color: Colors.purple, width: 2)),
   errorBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: Color(0xFFee7b64), width: 2)),
+      borderSide: BorderSide(color: Colors.purple, width: 2)),
 );
 
 nextScreen(context, page) {

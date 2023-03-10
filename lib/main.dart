@@ -26,13 +26,12 @@ class MyApp extends StatelessWidget {
         title: 'Flutter Demo',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          primaryColor: Constants().primaryColor,
-          floatingActionButtonTheme: FloatingActionButtonThemeData(
-              backgroundColor: Constants().primaryColor),
-          appBarTheme: AppBarTheme(backgroundColor: Constants().primaryColor),
+          primaryColor: Colors.purple,
+          floatingActionButtonTheme: const FloatingActionButtonThemeData(
+              backgroundColor: Colors.purple),
+          appBarTheme: const AppBarTheme(backgroundColor: Colors.purple),
           elevatedButtonTheme: ElevatedButtonThemeData(
-              style: ElevatedButton.styleFrom(
-                  backgroundColor: Constants().primaryColor)),
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.purple)),
         ),
         // home: isSignedIn ? const HomePage() : const LoginPage(),
         home: const WelcomeScreen(),
