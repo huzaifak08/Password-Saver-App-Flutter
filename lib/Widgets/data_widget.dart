@@ -4,11 +4,12 @@ class DataTile extends StatelessWidget {
   final String title;
   final String email;
   final String password;
-  const DataTile(
-      {super.key,
-      required this.title,
-      required this.email,
-      required this.password});
+  const DataTile({
+    super.key,
+    required this.title,
+    required this.email,
+    required this.password,
+  });
 
   @override
   Widget build(BuildContext context) {

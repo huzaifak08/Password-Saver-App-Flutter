@@ -1,8 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:password_saver/Provider/database_provider.dart';
 import 'package:password_saver/Screens/Auth%20Pages/profile_screen.dart';
 import 'package:password_saver/Widgets/data_widget.dart';
 import 'package:password_saver/Widgets/widgets.dart';
+import 'package:provider/provider.dart';
 
 import 'create_page.dart';
 
@@ -33,12 +36,14 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final database = Provider.of<DatabaseProvider>(context);
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.purple,
           // elevation: 0,
-          title: Text('Saved Data'),
+          title: const Text('Saved Data'),
           centerTitle: true,
         ),
         drawer: Drawer(
@@ -76,7 +81,45 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         ),
-        // body: dataList(),
+        body: StreamBuilder<QuerySnapshot>(
+          stream: database.getSavedData(FirebaseAuth.instance.currentUser!.uid),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              final dataDocs = snapshot.data!.docs;
+
+              if (snapshot.data!.docs != null) {
+                if (snapshot.data!.docs.length != 0) {
+                  return ListView.builder(
+                    itemCount: snapshot.data!.docs.length,
+                    itemBuilder: (context, index) {
+                      final myData =
+                          dataDocs[index].data()! as Map<String, dynamic>;
+                      return Column(
+                        children: [
+                          DataTile(
+                            title: myData['title'],
+                            email: myData['email'],
+                            password: myData['password'],
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                } else {
+                  return noGroupWidget();
+                }
+              } else {
+                return noGroupWidget();
+              }
+            } else {
+              return Center(
+                child: CircularProgressIndicator(
+                  color: Theme.of(context).primaryColor,
+                ),
+              );
+            }
+          },
+        ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             nextScreen(context, const CreateReminderPage());
@@ -84,44 +127,6 @@ class _HomePageState extends State<HomePage> {
           child: const Icon(Icons.add),
         ),
       ),
-    );
-  }
-
-  dataList() {
-    return StreamBuilder<QuerySnapshot>(
-      stream: data,
-      builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-        if (snapshot.hasData) {
-          if (snapshot.data!.docs != null) {
-            if (snapshot.data!.docs.length != 0) {
-              return ListView.builder(
-                itemCount: snapshot.data!.docs.length,
-                itemBuilder: (context, index) {
-                  return Column(
-                    children: [
-                      DataTile(
-                        title: snapshot.data!.docs[index]['title'],
-                        email: snapshot.data!.docs[index]['email'],
-                        password: snapshot.data!.docs[index]['password'],
-                      ),
-                    ],
-                  );
-                },
-              );
-            } else {
-              return noGroupWidget();
-            }
-          } else {
-            return noGroupWidget();
-          }
-        } else {
-          return Center(
-            child: CircularProgressIndicator(
-              color: Theme.of(context).primaryColor,
-            ),
-          );
-        }
-      },
     );
   }
 

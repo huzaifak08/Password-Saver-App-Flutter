@@ -1,5 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:password_saver/Provider/database_provider.dart';
+import 'package:password_saver/Screens/home_page.dart';
 import 'package:password_saver/Widgets/custom_button.dart';
+import 'package:provider/provider.dart';
 import '../Widgets/widgets.dart';
 
 class CreateReminderPage extends StatefulWidget {
@@ -19,6 +23,8 @@ class _CreateReminderPageState extends State<CreateReminderPage> {
 
   @override
   Widget build(BuildContext context) {
+    final database = Provider.of<DatabaseProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Create Reminder'),
@@ -97,9 +103,26 @@ class _CreateReminderPageState extends State<CreateReminderPage> {
                   text: 'Save Data',
                   onPressed: () {
                     if (formKey.currentState!.validate()) {
-                      //   setState(() {
-                      //     isLoading = true;
-                      //   });
+                      setState(() {
+                        isLoading = true;
+                      });
+
+                      database
+                          .createProductData(
+                              savedTitle,
+                              savedEmail,
+                              savedPassword,
+                              FirebaseAuth.instance.currentUser!.uid)
+                          .then((value) {
+                        setState(() {
+                          isLoading = false;
+                        });
+
+                        toastMessage('Data Saved');
+                        nextScreenReplace(context, const HomePage());
+                      }).onError((error, stackTrace) {
+                        toastMessage(error.toString());
+                      });
 
                       //   DatabaseService(uid: FirebaseAuth.instance.currentUser!.uid)
                       //       .savaData(FirebaseAuth.instance.currentUser!.uid, {
