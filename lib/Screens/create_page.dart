@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../Widgets/widgets.dart';
 
 class CreateReminderPage extends StatefulWidget {
-  CreateReminderPage({super.key});
+  const CreateReminderPage({super.key});
 
   @override
   State<CreateReminderPage> createState() => _CreateReminderPageState();
@@ -12,6 +12,7 @@ class _CreateReminderPageState extends State<CreateReminderPage> {
   String savedTitle = '';
   String savedEmail = '';
   String savedPassword = '';
+  bool isLoading = false;
 
   final formKey = GlobalKey<FormState>();
 
@@ -88,14 +89,37 @@ class _CreateReminderPageState extends State<CreateReminderPage> {
               ),
               const SizedBox(height: 30),
               ElevatedButton(
+                // -------------------------------------------
+
                 onPressed: () {
-                  if (formKey.currentState!.validate()) {}
+                  if (formKey.currentState!.validate()) {
+                    //   setState(() {
+                    //     isLoading = true;
+                    //   });
+
+                    //   DatabaseService(uid: FirebaseAuth.instance.currentUser!.uid)
+                    //       .savaData(FirebaseAuth.instance.currentUser!.uid, {
+                    //     'title': savedTitle,
+                    //     'email': savedEmail,
+                    //     'password': savedPassword,
+                    //   }).whenComplete(() {
+                    //     setState(() {
+                    //       isLoading = false;
+                    //     });
+                    //     toastMessage('Data Saved Successfully');
+                    //     nextScreenReplace(context, const HomePage());
+                    //   });
+                  }
                 },
-                child: Text(
-                  'Save Data',
-                  style: TextStyle(fontSize: 18),
-                ),
-                style: ElevatedButton.styleFrom(fixedSize: Size(120, 40)),
+                child: isLoading
+                    ? const CircularProgressIndicator(
+                        color: Colors.white,
+                      )
+                    : const Text(
+                        'Save Data',
+                        style: TextStyle(fontSize: 18),
+                      ),
+                style: ElevatedButton.styleFrom(fixedSize: const Size(120, 40)),
               )
             ],
           ),

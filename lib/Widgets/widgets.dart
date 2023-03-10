@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:image_picker/image_picker.dart';
 
 const textInputDecoration = InputDecoration(
   enabledBorder: OutlineInputBorder(
@@ -29,4 +32,21 @@ void toastMessage(String message) {
     textColor: Colors.white,
     fontSize: 16.0,
   );
+}
+
+Future<File?> pickImage(BuildContext context) async {
+  File? image;
+
+  try {
+    final pickedImage =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+
+    if (pickedImage != null) {
+      image = File(pickedImage.path);
+    }
+  } catch (e) {
+    toastMessage(e.toString());
+  }
+
+  return image;
 }
