@@ -27,7 +27,7 @@ void toastMessage(String message) {
     toastLength: Toast.LENGTH_SHORT,
     gravity: ToastGravity.BOTTOM,
     timeInSecForIosWeb: 5,
-    backgroundColor: Color(0xFFee7b64),
+    backgroundColor: Colors.purple,
     textColor: Colors.white,
     fontSize: 16.0,
   );

@@ -19,6 +19,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  String dataId = '';
+
   @override
   Widget build(BuildContext context) {
     final database = Provider.of<DatabaseProvider>(context, listen: false);
@@ -106,12 +108,16 @@ class _HomePageState extends State<HomePage> {
                     itemBuilder: (context, index) {
                       final myData =
                           dataDocs[index].data()! as Map<String, dynamic>;
+                      dataId = myData['dataId'];
                       return Column(
                         children: [
                           DataTile(
                             title: myData['title'],
                             email: myData['email'],
                             password: myData['password'],
+                            onPressed: () {
+                              popUpDialogue(context);
+                            },
                           ),
                         ],
                       );
@@ -167,6 +173,46 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
+    );
+  }
+
+  popUpDialogue(BuildContext context) {
+    final database = Provider.of<DatabaseProvider>(context, listen: false);
+
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Delete Data'),
+          content: const Text('Are you sure you want to delete?'),
+          actions: [
+            IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: const Icon(
+                  Icons.cancel,
+                  color: Colors.red,
+                )),
+            IconButton(
+                onPressed: () {
+                  database.deleteSavedData(dataId).then((value) {
+                    Navigator.pop(context);
+
+                    toastMessage('Deletion Complete');
+                  }).onError((error, stackTrace) {
+                    toastMessage(error.toString());
+
+                    Navigator.pop(context);
+                  });
+                },
+                icon: const Icon(
+                  Icons.delete,
+                  color: Colors.purple,
+                ))
+          ],
+        );
+      },
     );
   }
 }

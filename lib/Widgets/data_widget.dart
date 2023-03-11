@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:password_saver/Widgets/custom_button.dart';
 
 class DataTile extends StatelessWidget {
   final String title;
   final String email;
   final String password;
+  final VoidCallback onPressed;
+
   const DataTile({
     super.key,
     required this.title,
     required this.email,
     required this.password,
+    required this.onPressed,
   });
 
   @override
@@ -39,7 +43,7 @@ class DataTile extends StatelessWidget {
                       style:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
                   const Spacer(),
-                  Text(email, style: const TextStyle(fontSize: 16)),
+                  Text(email, style: const TextStyle(fontSize: 17)),
                 ],
               ),
               const SizedBox(height: 10),
@@ -49,9 +53,11 @@ class DataTile extends StatelessWidget {
                       style:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
                   const Spacer(),
-                  Text(password, style: const TextStyle(fontSize: 16)),
+                  Text(password, style: const TextStyle(fontSize: 17)),
                 ],
               ),
+              const SizedBox(height: 12),
+              CustomButton(text: 'Delete', onPressed: onPressed)
             ],
           ),
         ),

@@ -2,7 +2,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:password_saver/Provider/auth_provider.dart';
 import 'package:password_saver/Provider/database_provider.dart';
-import 'package:password_saver/constants.dart';
 import 'package:provider/provider.dart';
 import 'Screens/Auth Pages/welcome_screen.dart';
 

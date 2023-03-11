@@ -32,4 +32,9 @@ class DatabaseProvider extends ChangeNotifier {
   Stream<QuerySnapshot> getSavedData(String userId) {
     return dataCollection.where('userId', isEqualTo: userId).snapshots();
   }
+
+  // Delete Data:
+  Future<void> deleteSavedData(String dataId) async {
+    await dataCollection.doc(dataId).delete();
+  }
 }

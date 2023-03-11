@@ -34,13 +34,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
             // ignore: prefer_const_literals_to_create_immutables
             children: [
-              CircleAvatar(
-                backgroundColor: Colors.purple,
-                backgroundImage: NetworkImage(
-                  ap.userModel.profilePic,
-                ),
-                radius: 80,
+              const Icon(
+                Icons.account_circle,
+                size: 150,
+                color: Colors.white70,
               ),
+              // CircleAvatar(
+              //   backgroundColor: Colors.purple,
+              //   backgroundImage: NetworkImage(
+              //     ap.userModel.profilePic,
+              //   ),
+              //   radius: 80,
+              // ),
               ListTile(
                 onTap: () {
                   nextScreenReplace(context, const HomePage());
