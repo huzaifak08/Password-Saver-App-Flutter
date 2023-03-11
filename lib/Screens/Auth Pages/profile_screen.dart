@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:password_saver/Screens/Auth%20Pages/welcome_screen.dart';
 import 'package:password_saver/Screens/home_page.dart';
@@ -15,10 +16,12 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   bool loading = false;
+  final editController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     final ap = Provider.of<AuthProvider>(context, listen: false);
+    editController.text = ap.userModel.name;
 
     return SafeArea(
       child: Scaffold(
@@ -113,64 +116,66 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     borderRadius:
                         BorderRadius.vertical(top: Radius.circular(50)),
                     color: Colors.purple),
-                child: Column(
-                  children: [
-                    ListTile(
-                      leading: const Icon(
-                        Icons.account_circle_outlined,
-                        color: Colors.white,
-                        size: 35,
-                      ),
-                      title: Text(
-                        ap.userModel.name,
-                        style: const TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 22),
-                      ),
-                    ),
-                    ListTile(
-                      leading: const Icon(
-                        Icons.email_outlined,
-                        color: Colors.white,
-                        size: 35,
-                      ),
-                      title: Text(
-                        ap.userModel.email,
-                        style: const TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 22),
-                      ),
-                    ),
-                    ListTile(
-                      leading: const Icon(
-                        Icons.phone_android_outlined,
-                        color: Colors.white,
-                        size: 35,
-                      ),
-                      title: Text(
-                        ap.userModel.phoneNumber,
-                        style: const TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 22),
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 15),
-                      decoration: BoxDecoration(
-                          color: const Color.fromARGB(255, 217, 117, 235),
-                          borderRadius: BorderRadius.circular(23)),
-                      child: Text(ap.userModel.bio,
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      ListTile(
+                        leading: const Icon(
+                          Icons.account_circle_outlined,
+                          color: Colors.white,
+                          size: 35,
+                        ),
+                        title: Text(
+                          ap.userModel.name,
                           style: const TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.w500,
-                              fontSize: 20)),
-                    )
-                  ],
+                              fontSize: 22),
+                        ),
+                      ),
+                      ListTile(
+                        leading: const Icon(
+                          Icons.email_outlined,
+                          color: Colors.white,
+                          size: 30,
+                        ),
+                        title: Text(
+                          ap.userModel.email,
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 18),
+                        ),
+                      ),
+                      ListTile(
+                        leading: const Icon(
+                          Icons.phone_android_outlined,
+                          color: Colors.white,
+                          size: 30,
+                        ),
+                        title: Text(
+                          ap.userModel.phoneNumber,
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 20),
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 15),
+                        decoration: BoxDecoration(
+                            color: const Color.fromARGB(255, 217, 117, 235),
+                            borderRadius: BorderRadius.circular(23)),
+                        child: Text(ap.userModel.bio,
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 20)),
+                      )
+                    ],
+                  ),
                 ),
               ),
             )

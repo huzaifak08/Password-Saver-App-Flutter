@@ -194,6 +194,13 @@ class AuthProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  // Update Users Data:
+  Future<void> updateUserData(String userId, String name) async {
+    return _firebaseFirestore.collection('users').doc(userId).update({
+      'name': name,
+    });
+  }
+
   // Sign Out:
   Future userSignOut() async {
     SharedPreferences s = await SharedPreferences.getInstance();
