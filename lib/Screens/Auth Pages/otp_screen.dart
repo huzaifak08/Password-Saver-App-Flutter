@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:password_saver/Screens/Auth%20Pages/user_info_screen.dart';
+import 'package:password_saver/Screens/home_page.dart';
 import 'package:password_saver/Widgets/widgets.dart';
 import 'package:pinput/pinput.dart';
 
@@ -147,8 +148,7 @@ class _OtpScreenState extends State<OtpScreen> {
                                 (value) => Navigator.pushAndRemoveUntil(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) =>
-                                          const ProfileScreen(),
+                                      builder: (context) => const HomePage(),
                                     ),
                                     (route) => false),
                               ),

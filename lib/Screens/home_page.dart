@@ -1,12 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:password_saver/Provider/auth_provider.dart';
 import 'package:password_saver/Provider/database_provider.dart';
 import 'package:password_saver/Screens/Auth%20Pages/profile_screen.dart';
 import 'package:password_saver/Widgets/data_widget.dart';
 import 'package:password_saver/Widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
+import 'Auth Pages/welcome_screen.dart';
 import 'create_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -17,26 +19,10 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  Stream<QuerySnapshot>? data;
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  // String Manipulation:
-
-  String getId(String res) {
-    return res.substring(0, res.indexOf('_'));
-  }
-
-  String getName(String res) {
-    return res.substring(res.indexOf('_') + 1);
-  }
-
   @override
   Widget build(BuildContext context) {
-    final database = Provider.of<DatabaseProvider>(context);
+    final database = Provider.of<DatabaseProvider>(context, listen: false);
+    final ap = Provider.of<AuthProvider>(context, listen: false);
 
     return SafeArea(
       child: Scaffold(
@@ -52,11 +38,16 @@ class _HomePageState extends State<HomePage> {
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 25),
             // ignore: prefer_const_literals_to_create_immutables
             children: [
+              const Icon(
+                Icons.account_circle,
+                size: 150,
+                color: Colors.white70,
+              ),
               const ListTile(
                 selected: true,
                 selectedTileColor: Colors.white,
                 title: Text(
-                  'Home Page',
+                  'Home',
                   style: TextStyle(color: Colors.black),
                 ),
                 leading: Icon(
@@ -70,14 +61,35 @@ class _HomePageState extends State<HomePage> {
                   nextScreenReplace(context, const ProfileScreen());
                 },
                 title: const Text(
-                  'Profile Page',
+                  'Profile',
                   style: TextStyle(color: Colors.white),
                 ),
                 leading: const Icon(
                   Icons.account_circle,
                   color: Colors.white,
                 ),
-              )
+              ),
+              const SizedBox(height: 12),
+              ListTile(
+                onTap: () {
+                  ap.userSignOut().then(
+                        (value) => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const WelcomeScreen(),
+                          ),
+                        ),
+                      );
+                },
+                title: const Text(
+                  'Logout',
+                  style: TextStyle(color: Colors.white),
+                ),
+                leading: const Icon(
+                  Icons.exit_to_app,
+                  color: Colors.white,
+                ),
+              ),
             ],
           ),
         ),

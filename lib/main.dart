@@ -33,7 +33,6 @@ class MyApp extends StatelessWidget {
           elevatedButtonTheme: ElevatedButtonThemeData(
               style: ElevatedButton.styleFrom(backgroundColor: Colors.purple)),
         ),
-        // home: isSignedIn ? const HomePage() : const LoginPage(),
         home: const WelcomeScreen(),
       ),
     );
